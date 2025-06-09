@@ -2,7 +2,7 @@
 
 Install:
 
-`go install github.com/encodeous/harn`
+`go install github.com/encodeous/harn@latest`
 
 This program is a simple testing harness that allows users to compare program output using stdin/out.
 
