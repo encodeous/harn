@@ -1,4 +1,4 @@
-module harn
+module github.com/encodeous/harn
 
 go 1.24
 
