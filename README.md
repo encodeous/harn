@@ -12,5 +12,6 @@ Example: harn -v -t 5s ./myprogram 'testcases/*.in'
   -v               Enable full output when tests fail
   -t               Set timeout for program execution (default: 30s)
   -g               Generate output files if they don't exist
+  -f               (when -g is passed in) Overwrite the output file even if it exists
   -h               Use SHA256 to compare with .hash files instead of .out files
 ```

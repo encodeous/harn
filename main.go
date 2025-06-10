@@ -33,6 +33,7 @@ func main() {
 	silent := flag.Bool("s", false, "Enable silent output when tests fail")
 	timeout := flag.Duration("t", 30*time.Second, "Timeout for program execution (e.g., 5s, 1m, 500ms)")
 	generate := flag.Bool("g", false, "Generate output files if they don't exist")
+	forceGen := flag.Bool("f", false, "Overwrite the output file even if it exists")
 	useHash := flag.Bool("h", false, "Use SHA256 hash comparison with .hash files instead of .out files")
 	flag.Parse()
 
@@ -43,6 +44,7 @@ func main() {
 		fmt.Println("  -v               Enable full output when tests fail")
 		fmt.Println("  -t               Set timeout for program execution (default: 30s)")
 		fmt.Println("  -g               Generate output files if they don't exist")
+		fmt.Println("  -f               (when -g is passed in) Overwrite the output file even if it exists")
 		fmt.Println("  -h               Use SHA256 to compare with .hash files instead of .out files")
 		os.Exit(1)
 	}
@@ -81,7 +83,7 @@ func main() {
 
 		// Check if the expected output file exists
 		if *generate {
-			if _, err := os.Stat(outputFile); os.IsNotExist(err) {
+			if _, err := os.Stat(outputFile); os.IsNotExist(err) || *forceGen {
 				actualOutput, executionTime, err := executeProgram(programPath, inputFile, *timeout, *useHash)
 				totalExecutionTime += executionTime
 				execTimeStr := executionTime.Round(time.Millisecond).String()
